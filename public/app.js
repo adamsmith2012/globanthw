@@ -57,7 +57,7 @@ app.controller('homeController', ['$http', function($http) {
   function getLocation() {
     $http({
       method: 'GET',
-      url: "http://ipinfo.io"
+      url: "https://ipinfo.io"
     }).then(function(response) {
       if (response.status == 200) {
         console.log("RESPONSE");
