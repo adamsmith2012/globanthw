@@ -10,7 +10,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/weather', function(req, res) {
-  var darkskyURL = "https://api.darksky.net/forecast/7fd171ad4210ae3f291089be679e5658/" + req.query.lat + "," + req.query.lon;
+  var darkskyURL = "https://api.darksky.net/forecast/7fd171ad4210ae3f291089be679e5658/" + req.query.loc;
 
   function sendResponse(data) {
     res.send(data);

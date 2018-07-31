@@ -1,47 +1,49 @@
 <div ng-controller="homeController as ctrl">
   <div class="pane row">
-    <h3>Forecast</h3>
-    <hr>
-    <div class="col-md-2">
-      <div class="panel panel-primary" ng-if="ctrl.weather">
-        <div class="panel-heading">
-          Current Weather
-        </div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-sm-6">
-              <h1>{{ ctrl.weather.currently.temperature | number: 0}}&#176;</h1>
-            </div>
-            <div class="col-sm-6">
-              <h1><canvas ng-init="ctrl.setSkycon()" id="skycon" width="32" height="32"></canvas></h1>
-            </div>
-          </div>
-          <h4>{{ ctrl.weather.currently.summary }}</h4>
-        </div>
-      </div>
+    <div class="" ng-if="!ctrl.weather">
+      Retrieving weather data...
     </div>
-    <div class="col-md-10">
-
-      <div class="" ng-if="!ctrl.weather">
-        Retrieving weather data...
-      </div>
-      <div class="fiveDayForecast panel panel-primary" ng-if="ctrl.weather">
-        <div class="panel-heading">
-          5-Day Forecast
+    <div ng-if="ctrl.weather">
+      <h3 ng-if="ctrl.city && ctrl.region">Weather for {{ ctrl.city }}, {{ ctrl.region }}</h3>
+      <hr>
+      <div class="col-md-2">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            Current Weather
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <h1>{{ ctrl.weather.currently.temperature | number: 0}}&#176;</h1>
+              </div>
+              <div class="col-sm-6">
+                <h1><canvas ng-init="ctrl.setSkycon()" id="skycon" width="32" height="32"></canvas></h1>
+              </div>
+            </div>
+            <h4>{{ ctrl.weather.currently.summary }}</h4>
+          </div>
         </div>
-        <div class="panel-body">
-          <div class="row-eq-height">
+      </div>
+      <div class="col-md-10">
 
-            <div class="col-md-1"></div> <!-- buffer !-->
-            <div class="col-sm-2 col-small-padding row-eq-height" ng-repeat="day in ctrl.weather.daily.data | limitTo: 5">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  {{ ctrl.getDayOfWeek($index) }}
-                </div>
-                <div class="panel-body">
-                  <p><strong>Conditions:</strong> {{ day.summary }}</p>
-                  <p><strong>High:</strong> {{ day.temperatureHigh | number: 0 }}</p>
-                  <p><strong>Low:</strong> {{ day.temperatureLow | number: 0 }}</p>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            5-Day Forecast
+          </div>
+          <div class="panel-body">
+            <div class="row-eq-height">
+
+              <div class="col-md-1"></div> <!-- buffer !-->
+              <div class="col-sm-2 col-small-padding row-eq-height" ng-repeat="day in ctrl.weather.daily.data | limitTo: 5">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    {{ ctrl.getDayOfWeek($index) }}
+                  </div>
+                  <div class="panel-body">
+                    <p><strong>Conditions:</strong> {{ day.summary }}</p>
+                    <p><strong>High:</strong> {{ day.temperatureHigh | number: 0 }}</p>
+                    <p><strong>Low:</strong> {{ day.temperatureLow | number: 0 }}</p>
+                  </div>
                 </div>
               </div>
             </div>

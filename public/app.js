@@ -11,6 +11,8 @@ if(window.location.origin == "http://localhost:8000") {
 app.controller('homeController', ['$http', function($http) {
 
   this.weather = null;
+  this.city = "";
+  this.region = "";
 
   var controller = this;
   var location = null;
@@ -25,7 +27,7 @@ app.controller('homeController', ['$http', function($http) {
   this.getWeather = function() {
     $http({
       method: 'GET',
-      url: URL + "/weather?lat=" + location.coords.latitude + "&lon=" + location.coords.longitude
+      url: URL + "/weather?loc=" + location
     }).then(function(response) {
       if (response.status == 200) {
         this.weather = response.data;
@@ -43,6 +45,7 @@ app.controller('homeController', ['$http', function($http) {
     return dayOfWeek;
   }
 
+  // https://github.com/darkskyapp/skycons
   this.setSkycon = function() {
     var skycons = new Skycons();
     skycons.add(document.getElementById("skycon"), this.weather.currently.icon);
@@ -52,15 +55,23 @@ app.controller('homeController', ['$http', function($http) {
   /*** Helper Functions ***/
 
   function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(setLocation, showError);
-    } else {
-      x.innerHTML = "Geolocation is not supported by this browser.";
-    }
+    $http({
+      method: 'GET',
+      url: "http://ipinfo.io"
+    }).then(function(response) {
+      if (response.status == 200) {
+        console.log("RESPONSE");
+        setLocation(response.data);
+      } else {
+        console.log("Failed");
+      }
+    }.bind(this));
   }
 
-  function setLocation(position) {
-    location = position;
+  function setLocation(data) {
+    location = data.loc;
+    controller.city = data.city;
+    controller.region = data.region;
     controller.getWeather();
   }
 
