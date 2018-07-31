@@ -9,9 +9,8 @@
           Current Weather
         </div>
         <div class="panel-body">
-          <h5>
-            {{ ctrl.weather.currently.temperature | number: 0}}&#176; {{ ctrl.weather.currently.summary }}
-          </h5>
+          <h1>{{ ctrl.weather.currently.temperature | number: 0}}&#176;</h1>
+          <h5>{{ ctrl.weather.currently.summary }}</h5>
         </div>
       </div>
     </div>
