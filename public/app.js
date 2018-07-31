@@ -60,7 +60,6 @@ app.controller('homeController', ['$http', function($http) {
       url: "https://ipinfo.io"
     }).then(function(response) {
       if (response.status == 200) {
-        console.log("RESPONSE");
         setLocation(response.data);
       } else {
         console.log("Failed");
