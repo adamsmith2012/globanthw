@@ -13,6 +13,13 @@ app.controller('homeController', ['$http', '$location', function($http, $locatio
   var location = null;
 
   this.weather = null;
+  var date = new Date();
+  var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  this.getDayOfWeek = function(i) {
+    var dayOfWeek = weekday[(date.getDay() + i) % 7];
+    return dayOfWeek;
+  }
 
   function getLocation() {
     if (navigator.geolocation) {

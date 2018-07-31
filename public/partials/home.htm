@@ -1,10 +1,33 @@
 <div ng-controller="homeController as ctrl">
-  <div class="container">
+  <div class="pane">
     <h3>Forecast</h3>
-    <div class="panel panel-default">
-      <div class="panel-body">
+    <!-- <div class="panel panel-default">
+      <div class="panel-body"> -->
         <h4><a ng-click="ctrl.getWeather()">Get Weather</a></h4>
-      </div>
-    </div>
+        <h5 ng-if="ctrl.weather">
+          Current Weather: {{ ctrl.weather.currently.temperature | number: 0}}&#176; {{ ctrl.weather.currently.summary }}
+        </h5>
+        <div class="fiveDayForecast row panel panel-default" ng-if="ctrl.weather">
+          <div class="panel-heading">
+            5-Day Forecast
+          </div>
+          <div class="panel-body">
+            <div class="col-md-1"></div> <!-- buffer !-->
+            <div class="col-md-2 col-lg-2" ng-repeat="day in ctrl.weather.daily.data | limitTo: 5">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  {{ ctrl.getDayOfWeek($index) }}
+                </div>
+                <div class="panel-body">
+                  <p><strong>Conditions:</strong> {{ day.summary }}</p>
+                  <p><strong>High:</strong> {{ day.temperatureHigh }}</p>
+                  <p><strong>Low:</strong> {{ day.temperatureLow }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- </div> -->
+      <!-- </div>
+    </div> -->
   </div>
 </div>
