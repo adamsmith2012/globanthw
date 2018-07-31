@@ -17,6 +17,11 @@ app.controller('homeController', ['$http', function($http) {
   var date = new Date();
   var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+  /*** Methods ***/
+
+  // Makes a call to server that retrieves weather data
+  // returns weather data in object this.Weather
+  // api found on darksky.net
   this.getWeather = function() {
     $http({
       method: 'GET',
@@ -30,11 +35,21 @@ app.controller('homeController', ['$http', function($http) {
     }.bind(this));
   }
 
+  // Returns day of the week specified by index i;
+  // params: i - number of days away from current day. eg. i=1 is tomorrow
   this.getDayOfWeek = function(i) {
     if(i == 0) return "Today";
     var dayOfWeek = weekday[(date.getDay() + i) % 7];
     return dayOfWeek;
   }
+
+  this.setSkycon = function() {
+    var skycons = new Skycons();
+    skycons.add(document.getElementById("skycon"), this.weather.currently.icon);
+    skycons.play();
+  }
+
+  /*** Helper Functions ***/
 
   function getLocation() {
     if (navigator.geolocation) {
@@ -66,27 +81,8 @@ app.controller('homeController', ['$http', function($http) {
     }
   }
 
+  // Will set a start a series of call to getLocation() -> setLocation() -> this.getWeather()
   getLocation();
-}]);
-
-app.controller('mainController', ['$http', '$location', '$rootScope', function($http, $location, $rootScope) {
-
-  // $rootScope.$on("$routeChangeSuccess", function(args){
-  //   var $navs = $('#nav-links').find($('li'));
-  //   for (var i=0; i < $navs.length; i++) {
-  //     var $li = $($navs[i]);
-  //     var $a = $($li.find('a')[0]);
-  //     $li.show();
-  //     if ($location.path() == '/') {
-  //       $li.hide();
-  //     } else if ($a.attr('href') == $location.path()) {
-  //       $li.addClass('active');
-  //     } else {
-  //       $li.removeClass('active');
-  //     }
-  //   }
-  // });
-
 }]);
 
 /***** ROUTES *****/

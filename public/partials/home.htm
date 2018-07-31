@@ -3,14 +3,20 @@
     <h3>Forecast</h3>
     <hr>
     <div class="col-md-2">
-
       <div class="panel panel-primary" ng-if="ctrl.weather">
         <div class="panel-heading">
           Current Weather
         </div>
         <div class="panel-body">
-          <h1>{{ ctrl.weather.currently.temperature | number: 0}}&#176;</h1>
-          <h5>{{ ctrl.weather.currently.summary }}</h5>
+          <div class="row">
+            <div class="col-sm-6">
+              <h1>{{ ctrl.weather.currently.temperature | number: 0}}&#176;</h1>
+            </div>
+            <div class="col-sm-6">
+              <h1><canvas ng-init="ctrl.setSkycon()" id="skycon" width="32" height="32"></canvas></h1>
+            </div>
+          </div>
+          <h4>{{ ctrl.weather.currently.summary }}</h4>
         </div>
       </div>
     </div>
