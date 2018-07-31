@@ -31,6 +31,7 @@ app.controller('homeController', ['$http', function($http) {
   }
 
   this.getDayOfWeek = function(i) {
+    if(i == 0) return "Today";
     var dayOfWeek = weekday[(date.getDay() + i) % 7];
     return dayOfWeek;
   }

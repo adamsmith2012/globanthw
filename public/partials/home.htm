@@ -1,35 +1,48 @@
 <div ng-controller="homeController as ctrl">
-  <div class="pane">
+  <div class="pane row">
     <h3>Forecast</h3>
-    <!-- <div class="panel panel-default">
-      <div class="panel-body"> -->
-        <h5 ng-if="ctrl.weather">
-          Current Weather: {{ ctrl.weather.currently.temperature | number: 0}}&#176; {{ ctrl.weather.currently.summary }}
-        </h5>
-        <div class="" ng-if="!ctrl.weather">
-          Retrieving weather data...
+    <hr>
+    <div class="col-md-2">
+
+      <div class="panel panel-primary" ng-if="ctrl.weather">
+        <div class="panel-heading">
+          Current Weather
         </div>
-        <div class="fiveDayForecast row panel panel-default" ng-if="ctrl.weather">
-          <div class="panel-heading">
-            5-Day Forecast
-          </div>
-          <div class="panel-body">
+        <div class="panel-body">
+          <h5>
+            {{ ctrl.weather.currently.temperature | number: 0}}&#176; {{ ctrl.weather.currently.summary }}
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10">
+
+      <div class="" ng-if="!ctrl.weather">
+        Retrieving weather data...
+      </div>
+      <div class="fiveDayForecast panel panel-primary" ng-if="ctrl.weather">
+        <div class="panel-heading">
+          5-Day Forecast
+        </div>
+        <div class="panel-body">
+          <div class="row-eq-height">
+
             <div class="col-md-1"></div> <!-- buffer !-->
-            <div class="col-md-2 col-lg-2" ng-repeat="day in ctrl.weather.daily.data | limitTo: 5">
+            <div class="col-sm-2 col-small-padding row-eq-height" ng-repeat="day in ctrl.weather.daily.data | limitTo: 5">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   {{ ctrl.getDayOfWeek($index) }}
                 </div>
                 <div class="panel-body">
                   <p><strong>Conditions:</strong> {{ day.summary }}</p>
-                  <p><strong>High:</strong> {{ day.temperatureHigh }}</p>
-                  <p><strong>Low:</strong> {{ day.temperatureLow }}</p>
+                  <p><strong>High:</strong> {{ day.temperatureHigh | number: 0 }}</p>
+                  <p><strong>Low:</strong> {{ day.temperatureLow | number: 0 }}</p>
                 </div>
               </div>
             </div>
           </div>
-        <!-- </div> -->
-      <!-- </div>
-    </div> -->
+        </div>
+      </div>
+    </div>
   </div>
 </div>

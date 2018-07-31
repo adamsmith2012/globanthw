@@ -2,3 +2,17 @@
   width: 90%;
   margin: 5%;
 }
+
+.col-small-padding {
+  padding: 5px;
+}
+
+/* Keeps cols in row the same height */
+@media (min-width: 768px) {
+  .row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+  }
+}
