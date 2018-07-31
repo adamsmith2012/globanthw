@@ -10,8 +10,6 @@ app.get('/', function(req, res) {
 });
 
 app.get('/weather', function(req, res) {
-  console.log(req.query.lat);
-  console.log(req.query.lon);
   var darkskyURL = "https://api.darksky.net/forecast/7fd171ad4210ae3f291089be679e5658/" + req.query.lat + "," + req.query.lon;
 
   function sendResponse(data) {
@@ -28,8 +26,6 @@ app.get('/weather', function(req, res) {
 
     // The whole response has been received. Print out the result.
     res.on('end', function() {
-      // console.log(data);
-      // console.log(JSON.parse(data).explanation);
       sendResponse(data);
     });
 

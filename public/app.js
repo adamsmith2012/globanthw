@@ -8,13 +8,27 @@ if(window.location.origin == "http://localhost:8000") {
 
 /***** CONTROLLERS *****/
 
-app.controller('homeController', ['$http', '$location', function($http, $location) {
-
-  var location = null;
+app.controller('homeController', ['$http', function($http) {
 
   this.weather = null;
+
+  var controller = this;
+  var location = null;
   var date = new Date();
   var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  this.getWeather = function() {
+    $http({
+      method: 'GET',
+      url: URL + "/weather?lat=" + location.coords.latitude + "&lon=" + location.coords.longitude
+    }).then(function(response) {
+      if (response.status == 200) {
+        this.weather = response.data;
+      } else {
+        console.log("Failed");
+      }
+    }.bind(this));
+  }
 
   this.getDayOfWeek = function(i) {
     var dayOfWeek = weekday[(date.getDay() + i) % 7];
@@ -31,6 +45,7 @@ app.controller('homeController', ['$http', '$location', function($http, $locatio
 
   function setLocation(position) {
     location = position;
+    controller.getWeather();
   }
 
   function showError(error) {
@@ -50,42 +65,26 @@ app.controller('homeController', ['$http', '$location', function($http, $locatio
     }
   }
 
-  this.getWeather = function() {
-    console.log('Get Weather');
-    $http({
-      method: 'GET',
-      url: URL + "/weather?lat=" + location.coords.latitude + "&lon=" + location.coords.longitude
-      // url: darkskyURL + location.coords.latitude + "," + location.coords.longitude
-    }).then(function(response) {
-      if (response.status == 200) {
-        console.log(response.data);
-        this.weather = response.data;
-      } else {
-        console.log("Failed");
-      }
-    }.bind(this));
-  }
-
   getLocation();
 }]);
 
 app.controller('mainController', ['$http', '$location', '$rootScope', function($http, $location, $rootScope) {
 
-  $rootScope.$on("$routeChangeSuccess", function(args){
-    var $navs = $('#nav-links').find($('li'));
-    for (var i=0; i < $navs.length; i++) {
-      var $li = $($navs[i]);
-      var $a = $($li.find('a')[0]);
-      $li.show();
-      if ($location.path() == '/') {
-        $li.hide();
-      } else if ($a.attr('href') == $location.path()) {
-        $li.addClass('active');
-      } else {
-        $li.removeClass('active');
-      }
-    }
-  });
+  // $rootScope.$on("$routeChangeSuccess", function(args){
+  //   var $navs = $('#nav-links').find($('li'));
+  //   for (var i=0; i < $navs.length; i++) {
+  //     var $li = $($navs[i]);
+  //     var $a = $($li.find('a')[0]);
+  //     $li.show();
+  //     if ($location.path() == '/') {
+  //       $li.hide();
+  //     } else if ($a.attr('href') == $location.path()) {
+  //       $li.addClass('active');
+  //     } else {
+  //       $li.removeClass('active');
+  //     }
+  //   }
+  // });
 
 }]);
 

@@ -3,10 +3,12 @@
     <h3>Forecast</h3>
     <!-- <div class="panel panel-default">
       <div class="panel-body"> -->
-        <h4><a ng-click="ctrl.getWeather()">Get Weather</a></h4>
         <h5 ng-if="ctrl.weather">
           Current Weather: {{ ctrl.weather.currently.temperature | number: 0}}&#176; {{ ctrl.weather.currently.summary }}
         </h5>
+        <div class="" ng-if="!ctrl.weather">
+          Retrieving weather data...
+        </div>
         <div class="fiveDayForecast row panel panel-default" ng-if="ctrl.weather">
           <div class="panel-heading">
             5-Day Forecast
