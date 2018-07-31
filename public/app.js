@@ -1,7 +1,7 @@
 var app = angular.module('App', ['ngRoute']);
 
 if(window.location.origin == "http://localhost:8000") {
-  URL = 'http://localhost:3000';
+  URL = 'http://localhost:8000';
 } else {
   URL = "https://globanthw.herokuapp.com";
 }
@@ -9,9 +9,10 @@ if(window.location.origin == "http://localhost:8000") {
 /***** CONTROLLERS *****/
 
 app.controller('homeController', ['$http', '$location', function($http, $location) {
-  var darkskyURL = "https://api.darksky.net/forecast/7fd171ad4210ae3f291089be679e5658/";
 
   var location = null;
+
+  this.weather = null;
 
   function getLocation() {
     if (navigator.geolocation) {
@@ -46,10 +47,12 @@ app.controller('homeController', ['$http', '$location', function($http, $locatio
     console.log('Get Weather');
     $http({
       method: 'GET',
-      url: darkskyURL + location.coords.latitude + "," + location.coords.longitude
+      url: URL + "/weather?lat=" + location.coords.latitude + "&lon=" + location.coords.longitude
+      // url: darkskyURL + location.coords.latitude + "," + location.coords.longitude
     }).then(function(response) {
       if (response.status == 200) {
         console.log(response.data);
+        this.weather = response.data;
       } else {
         console.log("Failed");
       }
