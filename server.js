@@ -19,21 +19,20 @@ app.get('/weather', function(req, res) {
   https.get(darkskyURL, function(res) {
     var data = '';
 
-    // A chunk of data has been recieved.
-    res.on('data', function(chunk) {
-      data += chunk;
-    });
+  // A chunk of data has been recieved.
+  res.on('data', function(chunk) {
+    data += chunk;
+  });
 
-    // The whole response has been received. Print out the result.
-    res.on('end', function() {
-      sendResponse(data);
-    });
+  // whole response received
+  res.on('end', function() {
+    sendResponse(data);
+  });
 
   }).on("error", function(err) {
     console.log("Error: " + err.message);
   });
-
-  // res.send('Waiting for response from server');
+  
 });
 
 app.listen(port, function() {

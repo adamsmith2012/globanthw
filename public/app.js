@@ -74,31 +74,14 @@ app.controller('homeController', ['$http', function($http) {
     controller.getWeather();
   }
 
-  function showError(error) {
-    switch(error.code) {
-      case error.PERMISSION_DENIED:
-        x.innerHTML = "User denied the request for Geolocation."
-        break;
-      case error.POSITION_UNAVAILABLE:
-        x.innerHTML = "Location information is unavailable."
-        break;
-      case error.TIMEOUT:
-        x.innerHTML = "The request to get user location timed out."
-        break;
-      case error.UNKNOWN_ERROR:
-        x.innerHTML = "An unknown error occurred."
-        break;
-    }
-  }
-
   // Will set a start a series of call to getLocation() -> setLocation() -> this.getWeather()
   getLocation();
 }]);
 
 /***** ROUTES *****/
 
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) { //.config just runs once on load
-  $locationProvider.html5Mode({ enabled: true }); // tell angular to use push state
+app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode({ enabled: true });
   $routeProvider
   .when("/", {
     templateUrl : "partials/home.htm"
