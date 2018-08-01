@@ -7,32 +7,36 @@
       <h3 ng-if="ctrl.city && ctrl.region">Weather for {{ ctrl.city }}, {{ ctrl.region }}</h3>
       <hr>
       <div class="col-md-2">
+        <!-- Panel -->
         <div class="panel panel-primary">
           <div class="panel-heading">
             Current Weather
           </div>
+          <!-- Panel Body -->
           <div class="panel-body">
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-md-6 col-sm-2">
                 <h1>{{ ctrl.weather.currently.temperature | number: 0}}&#176;</h1>
               </div>
-              <div class="col-sm-6">
+              <div class="col-md-6 col-sm-2">
                 <h1><canvas ng-init="ctrl.setSkycon()" id="skycon" width="32" height="32"></canvas></h1>
               </div>
             </div>
             <h4>{{ ctrl.weather.currently.summary }}</h4>
           </div>
+          <!-- Panel Body -->
         </div>
+        <!-- Panel -->
       </div>
       <div class="col-md-10">
-
+        <!-- Panel -->
         <div class="panel panel-primary">
           <div class="panel-heading">
             5-Day Forecast
           </div>
+          <!-- Panel Body -->
           <div class="panel-body">
             <div class="row-eq-height">
-
               <div class="col-md-1"></div> <!-- buffer !-->
               <div class="col-sm-2 col-small-padding row-eq-height" ng-repeat="day in ctrl.weather.daily.data | limitTo: 5">
                 <div class="panel panel-default">
@@ -48,7 +52,9 @@
               </div>
             </div>
           </div>
+          <!-- Panel Body -->
         </div>
+        <!-- Panel -->
       </div>
     </div>
   </div>
